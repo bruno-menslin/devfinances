@@ -1,7 +1,11 @@
 /* GLOBAL */
 :root {
+    --dark-green: #2d4a22;
+    --green: #49AA26;
+    --light-green: #3dd705;
     --dark-purple: #363f5f;
-    --stock-green: #49AA26;
+    --red: #E83F5B;
+    --white-background: #f0f2f5;
 }
 
 * {
@@ -10,14 +14,18 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 93.75%; /* 100% == 16px */
+}
+
 body {
-    background: #f0f2f5;
+    background: var(--white-background);
     font-family: 'Poppins', sans-serif;
     color: var(--dark-purple);
 }
 
 .container {
-    width: min(90vw, 800px);
+    width: min(90vw, 1200px);
     margin: auto;
 }
 
@@ -27,10 +35,22 @@ h2 {
     font-weight: 400;
 }
 
+.sr-only { /* screen reader only */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 /* HEADER */
 header {
-    background: #2d4a22;
-    padding: 2rem 0 10rem;
+    background: var(--dark-green);
+    padding: 2rem 0 8rem;
     text-align: center;
 }
 
@@ -39,9 +59,54 @@ header {
     font-weight: 100;
 }
 
+/* LINKS AND BUTTONS */
+a {
+    text-decoration: none;
+    color: var(--green);
+}
+
+a:hover {
+    color: var(--light-green);
+}
+
+.link.new {
+    display: inline-block; /* to add margin bottom */
+    margin-bottom: 0.5rem;
+}
+
+.button {
+    width: 100%;
+    height: 3rem;
+    font-size: 16px;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.button.cancel {
+    border: 1px red solid;
+    color: red;
+    opacity: 0.5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button.save {
+    border: none;
+    background: var(--green);
+    color: #fff;
+}
+
+.button:hover {
+    opacity: 1;
+}
+
 /* BALANCE */
 #balance {
-    margin-top: -8rem;
+    margin-top: -4.5rem;
 }
 
 #balance h2 {
@@ -60,6 +125,9 @@ header {
 .card h3 {
     font-weight: 400;
     font-size: 1rem;
+    display: flex;
+    align-items: center; /* align in Y axis*/
+    justify-content: space-between;
 }
 
 .card p {
@@ -67,11 +135,16 @@ header {
 }
 
 .card.total {
-    background: var(--stock-green);
+    background: var(--green);
     color: #fff;
 }
 
 /* TABLE */
+.responsive-table {
+    display: block;
+    overflow-x: auto; /* when necessary creates scrolling on the x axis */
+}
+
 #transactions-table {
     width: 100%; /* 100% of container*/
     border-spacing: 0 0.5rem;
@@ -98,11 +171,11 @@ header {
 }
 
 td.expense {
-    color: #e92929;
+    color: var(--red);
 }
 
 td.income {
-    color: #12a454;
+    color: var(--green);
 }
 
 #transactions-table td {
@@ -126,9 +199,83 @@ td.income {
     border-radius: 0 0 0.5rem 0;
 }
 
+/* MODAL */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden; /* to not take space on screen */
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: var(--white-background);
+    padding: 2.4rem;
+    position: relative;
+    border-radius: 0.25rem;
+
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal h2 {
+    margin-top: 0;    
+}
+
+.modal input {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.8rem;
+    width: 100%;
+}
+
+.modal .input-group {
+    margin-top: 0.8rem;
+}
+
+.modal .input-group small {
+    opacity: 0.4;
+}
+
+.modal .input-group.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal .input-group.actions a,
+.modal .input-group.actions button {
+    width: 48%;
+}
+
 /* FOOTER */
 footer {
     text-align: center;
     padding: 4rem 0 2rem;
     opacity: 0.6;
+}
+
+/* RESPONSIVE */
+@media (min-width: 800px) {
+    html {
+        font-size: 87.5%; /* 14px */
+    }
+
+    #balance {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+    }
 }
