@@ -213,6 +213,7 @@ td.income {
 
     opacity: 0;
     visibility: hidden; /* to not take space on screen */
+    z-index: 1;
 }
 
 .modal-overlay.active {
