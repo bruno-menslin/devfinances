@@ -178,6 +178,10 @@ td.income {
     color: var(--green);
 }
 
+td img:hover {
+    cursor: pointer;
+}
+
 #transactions-table td {
     background: #fff;
     padding: 1rem 2rem;
